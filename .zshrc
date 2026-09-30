@@ -68,12 +68,25 @@ fi
 
 # 5. Starship prompt
 __set_starship_theme() {
-  local config="$HOME/.config/starship.toml"
+  local theme='sunbather'
+  local theme_file="$HOME/.config/theme-switcher/current"
+  local variant='light'
+  local config
   local autosuggest_style='fg=#93a1a1'
 
+  if [[ -r "$theme_file" ]]; then
+    IFS= read -r theme < "$theme_file"
+  fi
+
   if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
-    config="$HOME/.config/starship-dark.toml"
+    variant='dark'
     autosuggest_style='fg=#767676'
+  fi
+
+  config="$HOME/.config/theme-switcher/themes/$theme/starship-$variant.toml"
+  if [[ ! -r "$config" ]]; then
+    print -u2 -- "theme-switcher: missing Starship config: $config"
+    return 1
   fi
 
   export STARSHIP_CONFIG="$config"
@@ -85,13 +98,19 @@ add-zsh-hook precmd __set_starship_theme
 __set_starship_theme
 eval "$(starship init zsh)"
 __hermes_skin() {
+  local theme='sunbather'
+  local theme_file="$HOME/.config/theme-switcher/current"
+
+  if [[ -r "$theme_file" ]]; then
+    IFS= read -r theme < "$theme_file"
+  fi
+
   if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
-    print -r -- sunbather-dark
+    print -r -- "$theme-dark"
   else
-    print -r -- sunbather-light
+    print -r -- "$theme-light"
   fi
 }
-
 hermes() {
   local skin="$(__hermes_skin)"
   local current
@@ -119,6 +138,9 @@ alias ..='cd ..'
 alias dotfiles='git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME"'
 alias dots='dotfiles'
 alias fetch='fastfetch'
+theme-switcher() {
+  command luajit "$HOME/.config/theme-switcher/switcher.lua" "$@"
+}
 
 mkcd() {
   if [ $# -ne 1 ]; then

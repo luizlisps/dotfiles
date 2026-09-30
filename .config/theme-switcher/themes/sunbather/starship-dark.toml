@@ -2,6 +2,7 @@
 
 format = """
 $directory\
+$python\
 ${custom.git_branch_outside_home}\
 $git_status\
 $cmd_duration\
@@ -9,8 +10,8 @@ $line_break\
 $character"""
 
 [username]
-style_user = "#d75f87"
-style_root = "bold #c30771"
+style_user = "#c6c6c6"
+style_root = "bold #e32791"
 format = "[$user]($style) | "
 show_always = true
 
@@ -38,11 +39,11 @@ shell = ["zsh", "--no-rcs"]
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "#93a1a1"
+style = "#767676"
 
 [git_status]
 format = " $all_status$ahead_behind"
-style = "#10a778"
+style = "#5fd7a7"
 conflicted = "!"
 untracked = "?"
 modified = "*"
@@ -54,9 +55,10 @@ ahead = "^"
 behind = "v"
 diverged = "<>"
 up_to_date = ""
+
 [cmd_duration]
 format = " took:$duration "
-style = "#5f4b00"
+style = "#ffff87"
 
 [haskell]
 symbol = "λ"
@@ -70,6 +72,9 @@ detect_extensions = []
 detect_files = []
 
 [character]
-success_symbol = "[λ](bold #ff5f87)"
-error_symbol = "[λ](bold #c30771)"
-vimcmd_symbol = "[λ](bold #10a778)"
+success_symbol = "[λ](bold #d75f87)"
+error_symbol = "[λ](bold #e32791)"
+vimcmd_symbol = "[λ](bold #d75f87)"
+vimcmd_visual_symbol = "[❮](bold #d75f87)"
+vimcmd_replace_symbol = "[❮](bold #e32791)"
+vimcmd_replace_one_symbol = "[❮](bold #e32791)"

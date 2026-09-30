@@ -16,12 +16,17 @@ opt.termguicolors = true
 
 local background = system_background()
 opt.background = background
-vim.cmd.colorscheme("sunbather")
+local switcher_dir = vim.fn.stdpath("config"):gsub("/nvim$", "") .. "/theme-switcher"
+local active_theme_lines = vim.fn.readfile(switcher_dir .. "/current", "", 1)
+local active_theme_id = active_theme_lines[1] or "sunbather"
+local themes = dofile(switcher_dir .. "/themes.lua")
+local theme = assert(themes[active_theme_id], "Unknown theme: " .. active_theme_id)
 
-if background == "light" then
-    local readable_yellow = "#5f4b00"
-    local readable_yellow_background = "#d6b82c"
+vim.cmd.colorscheme(theme.colorscheme)
+local palette = theme.palette[background]
 
+local warning = palette.warning
+if warning then
     for _, group in ipairs({
         "WarningMsg",
         "DiagnosticWarn",
@@ -31,43 +36,25 @@ if background == "light" then
         "SyntasticWarningSign",
         "NeomakeWarningSign",
     }) do
-        vim.api.nvim_set_hl(0, group, { fg = readable_yellow })
+        vim.api.nvim_set_hl(0, group, { fg = warning.fg })
     end
 
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", {
-        sp = readable_yellow,
+        sp = warning.fg,
         undercurl = true,
     })
     vim.api.nvim_set_hl(0, "IncSearch", {
-        bg = readable_yellow_background,
-        fg = "#262626",
+        bg = warning.bg,
+        fg = warning.text,
     })
     vim.api.nvim_set_hl(0, "SyntasticWarning", {
-        bg = readable_yellow_background,
-        fg = "#262626",
+        bg = warning.bg,
+        fg = warning.text,
         bold = true,
     })
 end
 
-local telescope_palette = background == "light" and {
-    surface = "#eeeeee",
-    text = "#262626",
-    border = "#a8a8a8",
-    prompt = "#c30771",
-    results = "#008ec4",
-    preview = "#10a778",
-    selection = "#b6d6fd",
-    selection_text = "#262626",
-} or {
-    surface = "#121212",
-    text = "#c6c6c6",
-    border = "#767676",
-    prompt = "#d75f87",
-    results = "#008ec4",
-    preview = "#5fd7a7",
-    selection = "#d75f87",
-    selection_text = "#000000",
-}
+local telescope_palette = palette.telescope
 
 local telescope_highlights = {
     TelescopeNormal = { bg = telescope_palette.surface, fg = telescope_palette.text },
