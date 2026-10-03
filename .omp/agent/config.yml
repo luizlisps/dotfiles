@@ -4,8 +4,8 @@ modelRoles:
   web: openai-codex/gpt-5.6-luna
 symbolPreset: ascii
 theme:
-  light: sunbather-light
-  dark: sunbather-dark
+  light: light-solarized
+  dark: dark-solarized
 setupVersion: 2
 statusLine:
   separator: ascii

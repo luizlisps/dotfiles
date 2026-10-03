@@ -59,7 +59,7 @@ persistent-workspaces = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 
     # i3-style reload and a service mode for tree operations.
     alt-shift-c = 'reload-config'
-    alt-shift-semicolon = 'mode service'
+    f18 = 'mode service'
 
     # Workspaces.
     alt-1 = 'workspace 1'

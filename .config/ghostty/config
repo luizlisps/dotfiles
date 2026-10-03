@@ -1,5 +1,5 @@
 theme = light:solarized-light,dark:solarized-dark
-font-family = "IosevkaTermSlab Nerd Font"
+font-family = "JetbrainsMono Nerd Font"
 font-feature = -calt, -liga, -dlig
 cursor-style = block
 cursor-style-blink = false

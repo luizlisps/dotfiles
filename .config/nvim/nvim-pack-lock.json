@@ -56,10 +56,6 @@
       "rev": "a8085e29883ddcfb39bd46197eb32ef00df05368",
       "src": "https://github.com/maxmx03/solarized.nvim"
     },
-    "sunbather": {
-      "rev": "64506a07a735ad92752e0e9935c4fc304f0327a4",
-      "src": "https://github.com/nikolvs/vim-sunbather"
-    },
     "telescope": {
       "rev": "427b576c16792edad01a92b89721d923c19ad60f",
       "src": "https://github.com/nvim-telescope/telescope.nvim"

@@ -1,5 +1,10 @@
 # 1. Base environment
 export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
+# Keep Homebrew ahead of macOS system tools on Apple Silicon.
+if [[ -d /opt/homebrew/bin ]]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+fi
+
 export EDITOR="nvim"
 
 
@@ -56,7 +61,7 @@ export FZF_DEFAULT_OPTS='--height=40% --layout=reverse --border'
 
 # 4. Command feedback
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#767676'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#93a1a1'
 if [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
   source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
@@ -68,28 +73,15 @@ fi
 
 # 5. Starship prompt
 __set_starship_theme() {
-  local theme='sunbather'
-  local theme_file="$HOME/.config/theme-switcher/current"
   local variant='light'
-  local config
   local autosuggest_style='fg=#93a1a1'
-
-  if [[ -r "$theme_file" ]]; then
-    IFS= read -r theme < "$theme_file"
-  fi
 
   if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
     variant='dark'
-    autosuggest_style='fg=#767676'
+    autosuggest_style='fg=#586e75'
   fi
 
-  config="$HOME/.config/theme-switcher/themes/$theme/starship-$variant.toml"
-  if [[ ! -r "$config" ]]; then
-    print -u2 -- "theme-switcher: missing Starship config: $config"
-    return 1
-  fi
-
-  export STARSHIP_CONFIG="$config"
+  export STARSHIP_CONFIG="$HOME/.config/theme-switcher/themes/solarized/starship-$variant.toml"
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$autosuggest_style"
 }
 
@@ -97,20 +89,15 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd __set_starship_theme
 __set_starship_theme
 eval "$(starship init zsh)"
+
 __hermes_skin() {
-  local theme='sunbather'
-  local theme_file="$HOME/.config/theme-switcher/current"
-
-  if [[ -r "$theme_file" ]]; then
-    IFS= read -r theme < "$theme_file"
-  fi
-
   if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
-    print -r -- "$theme-dark"
+    print -r -- "solarized-dark"
   else
-    print -r -- "$theme-light"
+    print -r -- "solarized-light"
   fi
 }
+
 hermes() {
   local skin="$(__hermes_skin)"
   local current
@@ -138,9 +125,6 @@ alias ..='cd ..'
 alias dotfiles='git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME"'
 alias dots='dotfiles'
 alias fetch='fastfetch'
-theme-switcher() {
-  command luajit "$HOME/.config/theme-switcher/switcher.lua" "$@"
-}
 
 mkcd() {
   if [ $# -ne 1 ]; then
@@ -170,10 +154,6 @@ vault_qmd() {
 }
 
 
-# Keep Homebrew ahead of macOS system tools on Apple Silicon.
-if [[ -d /opt/homebrew/bin ]]; then
-  export PATH="/opt/homebrew/bin:$PATH"
-fi
 
 # pnpm
 export PNPM_HOME='/Users/luizgustavo/Library/pnpm'

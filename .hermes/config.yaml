@@ -1,5 +1,5 @@
 model:
-  default: gpt-5.6-luna
+  default: gpt-6-luna
   provider: openai-codex
   base_url: https://chatgpt.com/backend-api/codex
 database:
@@ -92,8 +92,10 @@ memory:
 delegation:
   max_iterations: 250
 skills:
-  creation_nudge_interval: 15
   external_dirs: []
+  creation_nudge_interval: 15
+approvals:
+  destructive_slash_confirm: false
 kanban:
   review_dispatch: true
 code_execution:
@@ -131,6 +133,10 @@ gateway:
     max_concurrent_runs: 10
 streaming:
   enabled: false
+onboarding:
+  seen:
+    busy_input_prompt: true
+    tool_progress_prompt: true
 telemetry:
   shared_metrics:
     enabled: false
@@ -165,9 +171,3 @@ platform_toolsets:
     - hermes-teams
   google_chat:
     - hermes-google_chat
-approvals:
-  destructive_slash_confirm: false
-onboarding:
-  seen:
-    busy_input_prompt: true
-    tool_progress_prompt: true

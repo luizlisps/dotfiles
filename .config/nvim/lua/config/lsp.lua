@@ -21,7 +21,8 @@ vim.lsp.config["lua_ls"] = {
 }
 local python_root_markers = {
     "pyproject.toml",
-    "pyrightconfig.json",
+    "ruff.toml",
+    ".ruff.toml",
     "setup.py",
     "setup.cfg",
     "requirements.txt",
@@ -30,48 +31,49 @@ local python_root_markers = {
     ".git",
 }
 
-local function python_language_server(root_dir)
+local function python_ruff(root_dir)
     if root_dir then
-        local local_cmd = vim.fs.joinpath(root_dir, ".venv", "bin", "pyright-langserver")
+        local local_cmd = vim.fs.joinpath(root_dir, ".venv", "bin", "ruff")
         if vim.fn.executable(local_cmd) == 1 then
             return local_cmd
         end
     end
 
-    return vim.fn.exepath("pyright-langserver")
+    return vim.fn.exepath("ruff")
 end
 
-vim.lsp.config["pyright"] = {
+vim.lsp.config["ruff"] = {
     cmd = function(dispatchers, config)
-        local cmd = python_language_server(config.root_dir)
+        local cmd = python_ruff(config.root_dir)
         if cmd == "" then
-            vim.notify("pyright-langserver is not installed", vim.log.levels.ERROR)
+            vim.notify("ruff is not installed", vim.log.levels.ERROR)
             return
         end
-        return vim.lsp.rpc.start({ cmd, "--stdio" }, dispatchers)
+        return vim.lsp.rpc.start({ cmd, "server" }, dispatchers)
     end,
     filetypes = { "python" },
     root_markers = python_root_markers,
-    settings = {
-        python = {
-            analysis = {
-                autoSearchPaths = true,
-                diagnosticMode = "workspace",
-                useLibraryCodeForTypes = true,
-            },
-        },
-    },
 }
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "python",
     callback = function(args)
         local root_dir = vim.fs.root(args.buf, python_root_markers)
-        if python_language_server(root_dir) ~= "" then
-            vim.lsp.enable("pyright")
+        if python_ruff(root_dir) ~= "" then
+            vim.lsp.enable("ruff")
         end
     end,
 })
+
+if vim.fn.executable("ruff") == 1 then
+    vim.lsp.enable("ruff")
+end
+
+vim.lsp.config["pyright"] = {
+    cmd = { "pyright-langserver", "--stdio" },
+    filetypes = { "python" },
+    root_markers = python_root_markers,
+}
 
 if vim.fn.executable("pyright-langserver") == 1 then
     vim.lsp.enable("pyright")
