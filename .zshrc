@@ -125,6 +125,7 @@ alias ..='cd ..'
 alias dotfiles='git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME"'
 alias dots='dotfiles'
 alias fetch='fastfetch'
+alias sail='./vendor/bin/sail'
 
 mkcd() {
   if [ $# -ne 1 ]; then
@@ -162,3 +163,4 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
+export PATH=/opt/homebrew/opt/openjdk@25/bin:$PATH

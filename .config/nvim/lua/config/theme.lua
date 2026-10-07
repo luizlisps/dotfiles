@@ -1,7 +1,5 @@
 local opt = vim.opt
 
-opt.termguicolors = true
-
 local function system_background()
     if vim.fn.has("macunix") == 1 or vim.fn.has("mac") == 1 then
         local style = vim.fn.system({ "defaults", "read", "-g", "AppleInterfaceStyle" })
@@ -83,41 +81,119 @@ local function apply_theme(next_background)
     for group, highlights in pairs(telescope_highlights) do
         vim.api.nvim_set_hl(0, group, highlights)
     end
+
+    local sidebar_highlights = {
+        NeoTreeNormal = { fg = telescope_palette.text, bg = telescope_palette.surface },
+        NeoTreeNormalNC = { fg = telescope_palette.text, bg = telescope_palette.surface },
+        NeoTreeEndOfBuffer = { fg = telescope_palette.surface, bg = telescope_palette.surface },
+        NeoTreeWinSeparator = { fg = telescope_palette.border, bg = telescope_palette.surface },
+        NeoTreeFileName = { fg = telescope_palette.text, bg = telescope_palette.surface },
+        NeoTreeDirectoryName = { fg = telescope_palette.results, bg = telescope_palette.surface },
+        NeoTreeDirectoryIcon = { fg = telescope_palette.results, bg = telescope_palette.surface },
+        NeoTreeRootName = { fg = telescope_palette.prompt, bg = telescope_palette.surface, bold = true },
+        NeoTreeIndentMarker = { fg = telescope_palette.border, bg = telescope_palette.surface },
+        NeoTreeExpander = { fg = telescope_palette.border, bg = telescope_palette.surface },
+        NeoTreeFloatBorder = { fg = telescope_palette.border, bg = telescope_palette.surface },
+    }
+
+    for group, highlights in pairs(sidebar_highlights) do
+        vim.api.nvim_set_hl(0, group, highlights)
+    end
+
+    local clue_highlights = {
+        MiniClueBorder = { fg = telescope_palette.border, bg = telescope_palette.surface },
+        MiniClueTitle = { fg = telescope_palette.prompt, bg = telescope_palette.surface, bold = true },
+        MiniClueSeparator = { fg = telescope_palette.border, bg = telescope_palette.surface },
+        MiniClueNextKey = { fg = telescope_palette.results, bg = telescope_palette.surface, bold = true },
+        MiniClueNextKeyWithPostkeys = { fg = telescope_palette.preview, bg = telescope_palette.surface },
+        MiniClueDescGroup = { fg = telescope_palette.prompt, bg = telescope_palette.surface, bold = true },
+        MiniClueDescSingle = { fg = telescope_palette.text, bg = telescope_palette.surface },
+    }
+
+    for group, highlights in pairs(clue_highlights) do
+        vim.api.nvim_set_hl(0, group, highlights)
+    end
+
     local tabline_highlights = {
-        MiniTablineCurrent = {
+        BufferLineBufferSelected = {
             fg = warning.text,
             bg = telescope_palette.selection,
             bold = true,
         },
-        MiniTablineVisible = {
+        BufferLineBufferVisible = {
             fg = telescope_palette.results,
             bg = telescope_palette.surface,
         },
-        MiniTablineHidden = {
+        BufferLineBackground = {
             fg = telescope_palette.text,
             bg = telescope_palette.surface,
         },
-        MiniTablineModifiedCurrent = {
+        BufferLineModifiedSelected = {
             fg = telescope_palette.prompt,
             bg = telescope_palette.selection,
             bold = true,
         },
-        MiniTablineModifiedVisible = {
+        BufferLineModifiedVisible = {
             fg = telescope_palette.preview,
             bg = telescope_palette.surface,
             bold = true,
         },
-        MiniTablineModifiedHidden = {
+        BufferLineModified = {
             fg = telescope_palette.preview,
             bg = telescope_palette.surface,
         },
-        MiniTablineFill = { bg = telescope_palette.surface },
-        MiniTablineTabpagesection = {
+        BufferLineDuplicateSelected = {
+            fg = telescope_palette.prompt,
+            bg = telescope_palette.selection,
+        },
+        BufferLineDuplicateVisible = {
+            fg = telescope_palette.results,
+            bg = telescope_palette.surface,
+        },
+        BufferLineDuplicate = {
+            fg = telescope_palette.text,
+            bg = telescope_palette.surface,
+        },
+        BufferLineFill = { bg = telescope_palette.surface },
+        BufferLineTab = {
             fg = telescope_palette.border,
             bg = telescope_palette.surface,
+        },
+        BufferLineTabSelected = {
+            fg = warning.text,
+            bg = telescope_palette.selection,
             bold = true,
         },
-        MiniTablineTrunc = {
+        BufferLineTabSeparator = {
+            fg = telescope_palette.border,
+            bg = telescope_palette.surface,
+        },
+        BufferLineTabSeparatorSelected = {
+            fg = telescope_palette.border,
+            bg = telescope_palette.selection,
+        },
+        BufferLineIndicatorSelected = {
+            fg = telescope_palette.prompt,
+            bg = telescope_palette.selection,
+            bold = true,
+        },
+        BufferLineIndicatorVisible = {
+            fg = telescope_palette.surface,
+            bg = telescope_palette.surface,
+        },
+        BufferLineSeparatorSelected = {
+            fg = telescope_palette.border,
+            bg = telescope_palette.selection,
+        },
+        BufferLineSeparatorVisible = {
+            fg = telescope_palette.border,
+            bg = telescope_palette.surface,
+        },
+        BufferLineSeparator = {
+            fg = telescope_palette.border,
+            bg = telescope_palette.surface,
+        },
+        BufferLineTruncMarker = {
             fg = telescope_palette.border,
             bg = telescope_palette.surface,
         },

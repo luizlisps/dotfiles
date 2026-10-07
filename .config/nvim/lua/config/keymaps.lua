@@ -47,10 +47,14 @@ map("<leader>fc", function()
     telescope.find_files({ cwd = current_buffer_directory() })
 end, "Files here")
 
-map("<leader>e", "<cmd>NvimTreeFocus<cr>", "File tree")
+map("<leader>e", "<cmd>Neotree filesystem focus left<cr>", "File tree")
 map("<leader>gg", "<cmd>LazyGit<cr>", "Git UI")
 map("<leader>ff", telescope.find_files, "Files")
 map("<leader>fg", telescope.live_grep, "Search")
+vim.keymap.set("x", "<leader>fg", telescope.grep_string, {
+    silent = true,
+    desc = "Search selected text",
+})
 map("<leader>fb", telescope.buffers, "Buffers")
 map("<leader>bn", "<cmd>enew<cr>", "New buffer")
 map("<leader>bd", "<cmd>bdelete<cr>", "Close buffer")
@@ -78,61 +82,9 @@ map("grn", vim.lsp.buf.rename, "Rename symbol")
 map("<leader>fm", function()
     require("conform").format({ async = true, lsp_format = "fallback" })
 end, "Format buffer")
-local function reload_config()
-    local config = vim.fn.fnameescape(vim.fn.stdpath("config") .. "/init.lua")
-    vim.cmd("source " .. config)
-    vim.notify("Neovim config reloaded", vim.log.levels.INFO)
-end
-
-vim.api.nvim_create_user_command("Reload", reload_config, {
-    desc = "Reload Neovim config",
-    force = true,
-})
-
 map("<leader>rr", "<cmd>Restart<cr>", "Restart Neovim")
 map("<leader>rc", "<cmd>Reload<cr>", "Reload config")
-local function restart_with_current_file()
-    local file = vim.api.nvim_buf_get_name(0)
-    local cursor = vim.api.nvim_win_get_cursor(0)
-
-    if file == "" or vim.bo.buftype ~= "" or vim.fn.filereadable(file) == 0 then
-        vim.cmd("restart")
-        return
-    end
-
-    local restart_command = string.format(
-        "restart lua local file = %q; vim.cmd({ cmd = 'edit', args = { file } }); pcall(vim.api.nvim_win_set_cursor, 0, { %d, %d })",
-        file,
-        cursor[1],
-        cursor[2]
-    )
-    vim.cmd(restart_command)
-end
-
-vim.api.nvim_create_user_command("Restart", restart_with_current_file, {
-    desc = "Restart Neovim",
-    force = true,
-})
-
-vim.cmd([[cnoreabbrev <expr> restart getcmdtype() ==# ':' && getcmdline() ==# 'restart' ? 'Restart' : 'restart']])
-
 map("<Esc>", "<cmd>nohlsearch<cr>", "Clear search highlight")
-vim.keymap.set("n", "<A-j>", "<cmd>move .+1<cr>==", {
-    silent = true,
-    desc = "Move line down",
-})
-vim.keymap.set("n", "<A-k>", "<cmd>move .-2<cr>==", {
-    silent = true,
-    desc = "Move line up",
-})
-vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv=gv", {
-    silent = true,
-    desc = "Move selection down",
-})
-vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv=gv", {
-    silent = true,
-    desc = "Move selection up",
-})
 
 local function completion_navigation(forward)
     if vim.fn.pumvisible() == 1 then
