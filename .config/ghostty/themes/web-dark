@@ -1,0 +1,23 @@
+# Dark counterpart with the same semantic roles and readable link colors.
+palette = 0=#111111
+palette = 1=#ff7b72
+palette = 2=#3fb950
+palette = 3=#d29922
+palette = 4=#8ab4f8
+palette = 5=#d2a8ff
+palette = 6=#56d4dd
+palette = 7=#c9d1d9
+palette = 8=#6e7681
+palette = 9=#ffa198
+palette = 10=#56d364
+palette = 11=#e3b341
+palette = 12=#a5d6ff
+palette = 13=#e2b8ff
+palette = 14=#76e3ea
+palette = 15=#ffffff
+background = #111111
+foreground = #f5f5f5
+cursor-color = #f5f5f5
+cursor-text = #111111
+selection-background = #30363d
+selection-foreground = #f5f5f5

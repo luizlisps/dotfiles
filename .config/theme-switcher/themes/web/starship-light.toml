@@ -10,20 +10,20 @@ $line_break\
 $character"""
 
 [username]
-style_user = "#657b83"
-style_root = "bold #dc322f"
+style_user = "#6b7280"
+style_root = "bold #b00020"
 format = "[$user]($style) | "
 show_always = true
 
 [hostname]
-style = "#93a1a1"
+style = "#6b7280"
 disabled = true
 format = "[$hostname]($style) "
 ssh_only = false
 aliases = { "MacBook-Air" = "air" }
 
 [directory]
-style = "#268bd2"
+style = "#0000ee"
 format = "[$path]($style) "
 truncation_length = 3
 
@@ -34,16 +34,16 @@ disabled = true
 command = "git branch --show-current"
 when = 'test "$PWD" != "$HOME" && git rev-parse --is-inside-work-tree >/dev/null 2>&1'
 format = " :: [git:$output]($style)"
-style = "#93a1a1"
+style = "#6b7280"
 shell = ["zsh", "--no-rcs"]
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "#93a1a1"
+style = "#6b7280"
 
 [git_status]
 format = " $all_status$ahead_behind"
-style = "#859900"
+style = "#008000"
 conflicted = "!"
 untracked = "?"
 modified = "*"
@@ -58,20 +58,20 @@ up_to_date = ""
 
 [cmd_duration]
 format = " took:$duration "
-style = "#b58900"
+style = "#8a4b00"
 
 [haskell]
 symbol = "λ"
-style = "#6c71c4"
+style = "#551a8b"
 format = '([$symbol $version]($style) )'
 
 [python]
 format = "[$virtualenv]($style) "
-style = "#586e75"
+style = "#6b7280"
 detect_extensions = []
 detect_files = []
 
 [character]
-success_symbol = "[λ](bold #2aa198)"
-error_symbol = "[λ](bold #dc322f)"
-vimcmd_symbol = "[λ](bold #859900)"
+success_symbol = "[λ](bold #006a70)"
+error_symbol = "[λ](bold #b00020)"
+vimcmd_symbol = "[λ](bold #008000)"

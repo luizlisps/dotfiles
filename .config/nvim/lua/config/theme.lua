@@ -13,7 +13,7 @@ end
 
 local switcher_dir = vim.fn.stdpath("config"):gsub("/nvim$", "") .. "/theme-switcher"
 local active_theme_lines = vim.fn.readfile(switcher_dir .. "/current", "", 1)
-local active_theme_id = active_theme_lines[1] or "solarized"
+local active_theme_id = active_theme_lines[1] or "web"
 local themes = dofile(switcher_dir .. "/themes.lua")
 local theme = assert(themes[active_theme_id], "Unknown theme: " .. active_theme_id)
 local background

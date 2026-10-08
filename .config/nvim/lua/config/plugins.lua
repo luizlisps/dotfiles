@@ -6,10 +6,6 @@ vim.g.lazygit_floating_window_border_chars = { "-", "|", "-", "|", "+", "+", "+"
 
 vim.pack.add({
     {
-        src = "https://github.com/maxmx03/solarized.nvim",
-        name = "solarized",
-    },
-    {
         src = "https://github.com/nvim-neo-tree/neo-tree.nvim",
         name = "neo-tree",
         version = vim.version.range("3"),

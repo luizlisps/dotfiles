@@ -35,7 +35,7 @@ require("lualine").setup({
                 function() return "λ" end,
                 color = function()
                     return {
-                        fg = vim.o.background == "dark" and "#d75f87" or "#586e75",
+                        fg = string.format("#%06x", vim.api.nvim_get_hl(0, { name = "Function", link = false }).fg),
                         gui = "bold",
                     }
                 end,

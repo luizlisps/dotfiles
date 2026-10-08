@@ -3,5 +3,5 @@
 # Yazi keeps its shipped file and directory icons; only the adaptive palette
 # is selected here.
 [flavor]
-dark = "solarized-dark"
-light = "solarized-light"
+dark = "web-dark"
+light = "web-light"

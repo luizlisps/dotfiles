@@ -1,0 +1,23 @@
+# Classic web light palette: white canvas, black text, default link blue.
+palette = 0=#000000
+palette = 1=#b00020
+palette = 2=#008000
+palette = 3=#8a4b00
+palette = 4=#0000ee
+palette = 5=#551a8b
+palette = 6=#006a70
+palette = 7=#d1d5db
+palette = 8=#6b7280
+palette = 9=#dc2626
+palette = 10=#15803d
+palette = 11=#a16207
+palette = 12=#1d4ed8
+palette = 13=#6f42c1
+palette = 14=#0f766e
+palette = 15=#ffffff
+background = #ffffff
+foreground = #000000
+cursor-color = #000000
+cursor-text = #ffffff
+selection-background = #e5e7eb
+selection-foreground = #000000

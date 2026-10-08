@@ -1,4 +1,4 @@
-theme = light:solarized-light,dark:solarized-dark
+theme = light:web-light,dark:web-dark
 font-family = "Paper Mono"
 font-feature = -calt, -liga, -dlig
 cursor-style = block

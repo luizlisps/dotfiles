@@ -61,7 +61,7 @@ export FZF_DEFAULT_OPTS='--height=40% --layout=reverse --border'
 
 # 4. Command feedback
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#93a1a1'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#6b7280'
 if [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
   source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
@@ -74,14 +74,14 @@ fi
 # 5. Starship prompt
 __set_starship_theme() {
   local variant='light'
-  local autosuggest_style='fg=#93a1a1'
+  local autosuggest_style='fg=#6b7280'
 
   if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
     variant='dark'
-    autosuggest_style='fg=#586e75'
+    autosuggest_style='fg=#b4b4b4'
   fi
 
-  export STARSHIP_CONFIG="$HOME/.config/theme-switcher/themes/solarized/starship-$variant.toml"
+  export STARSHIP_CONFIG="$HOME/.config/theme-switcher/themes/web/starship-$variant.toml"
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$autosuggest_style"
 }
 
@@ -92,9 +92,9 @@ eval "$(starship init zsh)"
 
 __hermes_skin() {
   if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
-    print -r -- "solarized-dark"
+    print -r -- "web-dark"
   else
-    print -r -- "solarized-light"
+    print -r -- "web-light"
   fi
 }
 
