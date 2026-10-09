@@ -39,10 +39,6 @@ vim.pack.add({
         name = "gitsigns",
     },
     {
-        src = "https://github.com/kylechui/nvim-surround",
-        name = "nvim-surround",
-    },
-    {
         src = "https://github.com/echasnovski/mini.nvim",
         name = "mini",
     },

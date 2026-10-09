@@ -1,9 +1,12 @@
 require("neo-tree").setup({
-    popup_border_style = "", -- Use the editor's ASCII winborder for dialogs.
+    popup_border_style = { "+", "-", "+", "|", "+", "-", "+", "|" },
     enable_git_status = true,
     enable_diagnostics = false,
     enable_modified_markers = false,
     default_component_configs = {
+        name = {
+            use_git_status_colors = true,
+        },
         indent = {
             indent_marker = "|",
             last_indent_marker = "+",

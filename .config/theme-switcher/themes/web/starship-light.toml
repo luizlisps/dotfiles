@@ -8,22 +8,42 @@ $git_status\
 $cmd_duration\
 $line_break\
 $character"""
+palette = "web"
+
+[palettes.web]
+base00 = "#ffffff"
+base01 = "#f3f4f6"
+base02 = "#e5e7eb"
+base03 = "#5b616e"
+base04 = "#000000"
+base05 = "#000000"
+base06 = "#000000"
+base07 = "#000000"
+base08 = "#b00020"
+base09 = "#8a4b00"
+base0A = "#8a4b00"
+base0B = "#008000"
+base0C = "#006a70"
+base0D = "#0000ee"
+base0E = "#551a8b"
+base0F = "#a31515"
+
 
 [username]
-style_user = "#6b7280"
-style_root = "bold #b00020"
+    style_user = "base03"
+    style_root = "bold base08"
 format = "[$user]($style) | "
 show_always = true
 
 [hostname]
-style = "#6b7280"
+style = "base03"
 disabled = true
 format = "[$hostname]($style) "
 ssh_only = false
 aliases = { "MacBook-Air" = "air" }
 
 [directory]
-style = "#0000ee"
+style = "base0D"
 format = "[$path]($style) "
 truncation_length = 3
 
@@ -34,16 +54,16 @@ disabled = true
 command = "git branch --show-current"
 when = 'test "$PWD" != "$HOME" && git rev-parse --is-inside-work-tree >/dev/null 2>&1'
 format = " :: [git:$output]($style)"
-style = "#6b7280"
+style = "base03"
 shell = ["zsh", "--no-rcs"]
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "#6b7280"
+style = "base03"
 
 [git_status]
 format = " $all_status$ahead_behind"
-style = "#008000"
+style = "base0B"
 conflicted = "!"
 untracked = "?"
 modified = "*"
@@ -58,20 +78,20 @@ up_to_date = ""
 
 [cmd_duration]
 format = " took:$duration "
-style = "#8a4b00"
+style = "base0A"
 
 [haskell]
 symbol = "λ"
-style = "#551a8b"
+style = "base0E"
 format = '([$symbol $version]($style) )'
 
 [python]
 format = "[$virtualenv]($style) "
-style = "#6b7280"
+style = "base03"
 detect_extensions = []
 detect_files = []
 
 [character]
-success_symbol = "[λ](bold #006a70)"
-error_symbol = "[λ](bold #b00020)"
-vimcmd_symbol = "[λ](bold #008000)"
+success_symbol = "[λ](bold base0C)"
+error_symbol = "[λ](bold base08)"
+vimcmd_symbol = "[λ](bold base0B)"

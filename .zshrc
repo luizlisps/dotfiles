@@ -74,7 +74,7 @@ fi
 # 5. Starship prompt
 __set_starship_theme() {
   local variant='light'
-  local autosuggest_style='fg=#6b7280'
+  local autosuggest_style='fg=#5b616e'
 
   if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
     variant='dark'

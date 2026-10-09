@@ -1,4 +1,5 @@
 vim.opt.termguicolors = true
+require("mini.basics").setup()
 
 require("mini.icons").setup({
     style = "glyph",
@@ -92,12 +93,13 @@ require("lualine").setup({
     },
     extensions = { "neo-tree", "quickfix", "man" },
 })
+require("mini.starter").setup()
 local bufferline = require("bufferline")
 bufferline.setup({
     options = {
         mode = "buffers",
         style_preset = bufferline.style_preset.no_italic,
-        indicator = { style = "icon", icon = ">" },
+        indicator = { style = "none" },
         modified_icon = "+",
         buffer_close_icon = "",
         tab_size = 0,
@@ -106,7 +108,7 @@ bufferline.setup({
         show_tab_indicators = true,
         separator_style = { "|", "|" },
         left_trunc_marker = "<",
-        right_trunc_marker = ">",
+        right_trunc_marker = "",
         get_element_icon = function(element)
             if element.path ~= "" then
                 return (mini_icons.get("file", element.path))
@@ -117,3 +119,4 @@ bufferline.setup({
         end,
     },
 })
+require("mini.notify").setup()
