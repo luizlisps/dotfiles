@@ -7,8 +7,8 @@ modelRoles:
   smol: openai-codex/gpt-6-sol:high
 symbolPreset: ascii
 theme:
-  light: light
-  dark: titanium
+  light: web-light
+  dark: web-dark
 setupVersion: 2
 statusLine:
   separator: ascii
@@ -26,7 +26,7 @@ tui:
   tight: false
 display:
   showTokenUsage: false
-defaultThinkingLevel: auto
+defaultThinkingLevel: high
 skills:
   enableCodexUser: true
 retry:

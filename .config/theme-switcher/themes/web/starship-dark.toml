@@ -11,39 +11,37 @@ $character"""
 palette = "web"
 
 [palettes.web]
-base00 = "#111111"
-base01 = "#1c1c1c"
-base02 = "#30363d"
-base03 = "#b4b4b4"
-base04 = "#c9d1d9"
-base05 = "#f5f5f5"
-base06 = "#f5f5f5"
-base07 = "#f5f5f5"
-base08 = "#ff7b72"
-base09 = "#f2cc60"
-base0A = "#f2cc60"
-base0B = "#7ee787"
-base0C = "#56d4dd"
-base0D = "#8ab4f8"
-base0E = "#d2a8ff"
-base0F = "#ffa198"
+background = "#111111"
+surface = "#1c1c1c"
+selection = "#30363d"
+muted = "#b4b4b4"
+operator = "#c9d1d9"
+text = "#f5f5f5"
+error = "#ff7b72"
+number = "#f2cc60"
+warning = "#f2cc60"
+string = "#7ee787"
+type = "#56d4dd"
+link = "#8ab4f8"
+keyword = "#d2a8ff"
+constant = "#ffa198"
 
 
 [username]
-    style_user = "base03"
-    style_root = "bold base08"
+    style_user = "muted"
+    style_root = "bold error"
 format = "[$user]($style) | "
 show_always = true
 
 [hostname]
-style = "base03"
+style = "muted"
 disabled = true
 format = "[$hostname]($style) "
 ssh_only = false
 aliases = { "MacBook-Air" = "air" }
 
 [directory]
-style = "base0D"
+style = "link"
 format = "[$path]($style) "
 truncation_length = 3
 
@@ -54,16 +52,16 @@ disabled = true
 command = "git branch --show-current"
 when = 'test "$PWD" != "$HOME" && git rev-parse --is-inside-work-tree >/dev/null 2>&1'
 format = " :: [git:$output]($style)"
-style = "base03"
+style = "muted"
 shell = ["zsh", "--no-rcs"]
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "base03"
+style = "muted"
 
 [git_status]
 format = " $all_status$ahead_behind"
-style = "base0B"
+style = "string"
 conflicted = "!"
 untracked = "?"
 modified = "*"
@@ -78,23 +76,23 @@ up_to_date = ""
 
 [cmd_duration]
 format = " took:$duration "
-style = "base0A"
+style = "warning"
 
 [haskell]
 symbol = "λ"
-style = "base0E"
+style = "keyword"
 format = '([$symbol $version]($style) )'
 
 [python]
 format = "[$virtualenv]($style) "
-style = "base03"
+style = "muted"
 detect_extensions = []
 detect_files = []
 
 [character]
-success_symbol = "[λ](bold base0C)"
-error_symbol = "[λ](bold base08)"
-vimcmd_symbol = "[λ](bold base0B)"
-vimcmd_visual_symbol = "[❮](bold base0E)"
-vimcmd_replace_symbol = "[❮](bold base08)"
-vimcmd_replace_one_symbol = "[❮](bold base08)"
+success_symbol = "[λ](bold type)"
+error_symbol = "[λ](bold error)"
+vimcmd_symbol = "[λ](bold string)"
+vimcmd_visual_symbol = "[❮](bold keyword)"
+vimcmd_replace_symbol = "[❮](bold error)"
+vimcmd_replace_one_symbol = "[❮](bold error)"
