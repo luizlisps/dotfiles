@@ -119,4 +119,7 @@ bufferline.setup({
         end,
     },
 })
-require("mini.notify").setup()
+require("mini.notify").setup({
+    -- pyright reports "Analyzing..." progress on every edit, which spams popups
+    lsp_progress = { enable = false },
+})

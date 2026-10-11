@@ -1,6 +1,6 @@
 modelRoles:
   plan: openai-codex/gpt-5.6-sol:high
-  default: openai-codex/gpt-6-luna:max
+  default: openai-codex/gpt-6-luna:high
   web: openai-codex/gpt-5.6-luna
   slow: openai-codex/gpt-6-luna:max
   advisor: openai-codex/gpt-6-luna:max
@@ -18,12 +18,13 @@ dev:
   autoqaConsent: granted
 textVerbosity: low
 tier:
-  openai: default
+  openai: ultrafast
 composer:
   shape: box
 colorBlindMode: false
 tui:
   tight: false
+  vimMode: true
 display:
   showTokenUsage: false
 defaultThinkingLevel: high
