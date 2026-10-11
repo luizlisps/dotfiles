@@ -1,5 +1,8 @@
+# Keep PATH entries unique when a login shell starts inside another shell.
+typeset -U path
+
 # The following lines were added by Docker Desktop to add commands to your PATH.
-export PATH="$PATH:/Users/luizgustavo/.docker/bin"
+export PATH="$PATH:$HOME/.docker/bin"
 # End of Docker Desktop section.
 
 # >>> coursier install directory >>>

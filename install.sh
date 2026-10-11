@@ -3,8 +3,9 @@
 set -Eeuo pipefail
 IFS=$'\n\t'
 
-readonly DEFAULT_REPO_URL="https://github.com/ttusk/dotfiles.git"
-readonly MONACO_FONT_URL="https://github.com/thep0y/monaco-nerd-font/releases/latest/download/MonacoNerdFontMono.zip"
+readonly DEFAULT_REPO_URL="https://github.com/luizlisps/dotfiles.git"
+readonly PAPER_MONO_URL="https://github.com/paper-design/paper-mono/releases/download/v1.000/paper-mono-v1.000.zip"
+readonly PAPER_MONO_SHA256="8642652985dc87bf4cfd07c89942899e611c3c774fc25284c0dd4fe86a993a13"
 
 REPO_URL="${DOTFILES_REPO_URL:-$DEFAULT_REPO_URL}"
 if [[ -n "${DOTFILES_GIT_DIR:-}" && "$DOTFILES_GIT_DIR" != "$HOME/.dotfiles.git" ]]; then
@@ -237,6 +238,9 @@ ensure_brew_formulae() {
   log "Installing Homebrew formulae"
 
   local -a formulae=(
+    tmux
+    eza
+    fastfetch
     starship
     neovim
     nvm
@@ -460,24 +464,24 @@ install_timer() {
   fi
 }
 
-install_monaco_nerd_font() {
-  log "Installing Monaco Nerd Font Mono"
+install_paper_mono() {
+  log "Installing Paper Mono"
 
   local font_dir="$HOME/Library/Fonts"
-  local -a weights=(Regular Italic Bold BoldItalic)
-  local weight missing=0 tmp source
+  local -a weights=(Thin ExtraLight Light Regular Medium SemiBold Bold ExtraBold)
+  local weight missing=0 tmp source archive actual_hash
 
   for weight in "${weights[@]}"; do
-    [[ -f "$font_dir/MonacoNerdFontMono-$weight.ttf" ]] || missing=1
+    [[ -f "$font_dir/PaperMono-$weight.ttf" ]] || missing=1
   done
 
   if [[ "$missing" -eq 0 ]]; then
-    printf '  Monaco Nerd Font Mono already installed\n'
+    printf '  Paper Mono already installed\n'
     return
   fi
 
   if ((DRY_RUN)); then
-    printf '+ download %s\n' "$MONACO_FONT_URL"
+    printf '+ download %s\n' "$PAPER_MONO_URL"
     printf '+ install fonts into %q\n' "$font_dir"
     return
   fi
@@ -485,15 +489,18 @@ install_monaco_nerd_font() {
   require_command curl
   require_command unzip
 
-  tmp="$(mktemp -d -t dotfiles-font.XXXXXX)"
+  tmp="$(mktemp -d -t dotfiles-paper-mono.XXXXXX)"
   TEMP_DIRS+=("$tmp")
-  curl -fsSL "$MONACO_FONT_URL" -o "$tmp/MonacoNerdFontMono.zip"
+  archive="$tmp/paper-mono-v1.000.zip"
+  curl -fsSL "$PAPER_MONO_URL" -o "$archive"
+  actual_hash="$(shasum -a 256 "$archive")"
+  [[ "${actual_hash%% *}" == "$PAPER_MONO_SHA256" ]] || die "Paper Mono archive checksum mismatch"
   mkdir -p -- "$tmp/font"
-  unzip -q -o "$tmp/MonacoNerdFontMono.zip" -d "$tmp/font"
+  unzip -q -o "$archive" -d "$tmp/font"
   mkdir -p -- "$font_dir"
 
   for weight in "${weights[@]}"; do
-    source="$tmp/font/MonacoNerdFontMono-$weight.ttf"
+    source="$tmp/font/paper-mono-v1.000/fonts/ttf/PaperMono-$weight.ttf"
     [[ -f "$source" ]] || die "font archive is missing $(basename "$source")"
     cp -f "$source" "$font_dir/"
   done
@@ -514,7 +521,7 @@ verify_install() {
   TERM="${TERM:-xterm-256color}" zsh -lic '
     set -eu
     for command_name in \
-      starship nvim node pnpm bun cargo rustup rust-analyzer timr-tui \
+      tmux eza fastfetch starship nvim node pnpm bun cargo rustup rust-analyzer timr-tui \
       elixir-ls \
       elixir uv ghcup ghc cabal stack haskell-language-server-wrapper; do
       if ! command -v "$command_name" >/dev/null 2>&1; then
@@ -543,7 +550,12 @@ main() {
   setup_rust
   setup_haskell
   install_timer
-  install_monaco_nerd_font
+  install_paper_mono
+  if ((DRY_RUN)); then
+    run "$HOME/.config/theme-switcher/install-launch-agent.sh" --dry-run
+  else
+    "$HOME/.config/theme-switcher/install-launch-agent.sh"
+  fi
   verify_install
 
   log "Done"

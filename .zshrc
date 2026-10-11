@@ -1,4 +1,5 @@
 # 1. Base environment
+typeset -U path
 export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
 # Keep Homebrew ahead of macOS system tools on Apple Silicon.
 if [[ -d /opt/homebrew/bin ]]; then
@@ -157,7 +158,7 @@ vault_qmd() {
 
 
 # pnpm
-export PNPM_HOME='/Users/luizgustavo/Library/pnpm'
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME/bin:"*) ;;
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
