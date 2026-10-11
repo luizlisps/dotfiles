@@ -1,0 +1,29 @@
+#!/bin/sh
+# Git indicators match the symbols used by the Starship prompt.
+dir=$1
+git -C "$dir" rev-parse --is-inside-work-tree >/dev/null 2>&1 || { printf '–'; exit 0; }
+branch=$(git -C "$dir" symbolic-ref --quiet --short HEAD 2>/dev/null) || branch=$(git -C "$dir" rev-parse --short HEAD 2>/dev/null) || exit 0
+printf '[%s]' "$branch"
+git -C "$dir" status --porcelain=v1 2>/dev/null | {
+    conflicted= untracked= modified= staged= renamed= deleted=
+    while IFS= read -r line; do
+        xy=${line%"${line#??}"}
+        case $xy in
+            '??') untracked='?' ;;
+            DD|AU|UD|UA|DU|AA|UU) conflicted='!' ;;
+            *)
+                index=${xy%?}
+                worktree=${xy#?}
+                case $index in M|A|D|R|C) staged='+' ;; esac
+                case $xy in *R*) renamed='>' ;; esac
+                case $xy in *D*) deleted='x' ;; esac
+                case $worktree in M) modified='*' ;; esac
+                ;;
+        esac
+    done
+    printf '%s%s%s%s%s%s' "$conflicted" "$untracked" "$modified" "$staged" "$renamed" "$deleted"
+}
+if git -C "$dir" rev-parse --verify --quiet refs/stash >/dev/null; then printf '$'; fi
+counts=$(git -C "$dir" rev-list --left-right --count 'HEAD...@{upstream}' 2>/dev/null) || exit 0
+set -- $counts
+if [ "$1" -gt 0 ] && [ "$2" -gt 0 ]; then printf '<>'; elif [ "$1" -gt 0 ]; then printf '^'; elif [ "$2" -gt 0 ]; then printf 'v'; fi
