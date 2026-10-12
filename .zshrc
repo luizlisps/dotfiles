@@ -73,43 +73,8 @@ if [[ -r /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # 5. Starship prompt
-__set_starship_theme() {
-  local variant='light'
-  local autosuggest_style='fg=#5b616e'
-
-  if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
-    variant='dark'
-    autosuggest_style='fg=#b4b4b4'
-  fi
-
-  export STARSHIP_CONFIG="$HOME/.config/theme-switcher/themes/web/starship-$variant.toml"
-  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$autosuggest_style"
-}
-
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd __set_starship_theme
-__set_starship_theme
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#93a1a1'
 eval "$(starship init zsh)"
-
-__hermes_skin() {
-  if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q "Dark"; then
-    print -r -- "web-dark"
-  else
-    print -r -- "web-light"
-  fi
-}
-
-hermes() {
-  local skin="$(__hermes_skin)"
-  local current
-
-  current="$(command hermes config get display.skin 2>/dev/null)"
-  if [[ "$current" != "$skin" ]]; then
-    command hermes config set display.skin "$skin" >/dev/null 2>&1
-  fi
-
-  command hermes "$@"
-}
 
 # 6. Aliases and helpers
 alias vim='nvim'

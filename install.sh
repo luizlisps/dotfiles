@@ -551,11 +551,6 @@ main() {
   setup_haskell
   install_timer
   install_paper_mono
-  if ((DRY_RUN)); then
-    run "$HOME/.config/theme-switcher/install-launch-agent.sh" --dry-run
-  else
-    "$HOME/.config/theme-switcher/install-launch-agent.sh"
-  fi
   verify_install
 
   log "Done"

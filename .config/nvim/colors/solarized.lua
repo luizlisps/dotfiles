@@ -1,10 +1,27 @@
-local switcher_dir = vim.fn.stdpath("config"):gsub("/nvim$", "") .. "/theme-switcher"
-local active_theme_lines = vim.fn.readfile(switcher_dir .. "/current", "", 1)
-local active_theme_id = active_theme_lines[1] or "web"
-local themes = dofile(switcher_dir .. "/themes.lua")
-local theme = assert(themes[active_theme_id], "Unknown theme: " .. active_theme_id)
-local mode_palette = assert(theme.palette[vim.o.background], "Missing palette for " .. vim.o.background)
-local colors = assert(mode_palette.roles, "Missing semantic colors for " .. vim.o.background)
+-- Solarized Light (Ethan Schoonover).
+vim.o.background = "light"
+local colors = {
+    background = "#fdf6e3",
+    surface = "#eee8d5",
+    text = "#657b83",
+    muted = "#93a1a1",
+    border = "#93a1a1",
+    selection = "#eee8d5",
+    link = "#268bd2",
+    visited = "#6c71c4",
+    active = "#cb4b16",
+    error = "#dc322f",
+    warning = "#b58900",
+    success = "#859900",
+    string = "#2aa198",
+    number = "#d33682",
+    keyword = "#859900",
+    type = "#b58900",
+    func = "#268bd2",
+    constant = "#cb4b16",
+    variable = "#657b83",
+    operator = "#586e75",
+}
 local base16_palette = {
     base00 = colors.background,
     base01 = colors.surface,
@@ -242,4 +259,4 @@ for group, highlightspec in pairs(highlights) do
     vim.api.nvim_set_hl(0, group, highlightspec)
 end
 
-vim.g.colors_name = theme.colorscheme
+vim.g.colors_name = "solarized"

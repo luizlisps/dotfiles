@@ -8,23 +8,24 @@ $git_status\
 $cmd_duration\
 $line_break\
 $character"""
-palette = "web"
+palette = "solarized"
 
-[palettes.web]
-background = "#111111"
-surface = "#1c1c1c"
-selection = "#30363d"
-muted = "#b4b4b4"
-operator = "#c9d1d9"
-text = "#f5f5f5"
-error = "#ff7b72"
-number = "#f2cc60"
-warning = "#f2cc60"
-string = "#7ee787"
-type = "#56d4dd"
-link = "#8ab4f8"
-keyword = "#d2a8ff"
-constant = "#ffa198"
+[palettes.solarized]
+background = "#fdf6e3"
+surface = "#eee8d5"
+selection = "#eee8d5"
+muted = "#93a1a1"
+operator = "#586e75"
+text = "#657b83"
+error = "#dc322f"
+number = "#d33682"
+warning = "#b58900"
+string = "#2aa198"
+type = "#2aa198"
+link = "#268bd2"
+keyword = "#6c71c4"
+constant = "#cb4b16"
+success = "#859900"
 
 
 [username]
@@ -93,6 +94,3 @@ detect_files = []
 success_symbol = "[λ](bold type)"
 error_symbol = "[λ](bold error)"
 vimcmd_symbol = "[λ](bold string)"
-vimcmd_visual_symbol = "[❮](bold keyword)"
-vimcmd_replace_symbol = "[❮](bold error)"
-vimcmd_replace_one_symbol = "[❮](bold error)"
