@@ -7,8 +7,8 @@ modelRoles:
   smol: openai-codex/gpt-6-sol:high
 symbolPreset: ascii
 theme:
-  light: web-light
-  dark: web-dark
+  light: solarized-light
+  dark: solarized-light
 setupVersion: 2
 statusLine:
   separator: ascii
