@@ -21,6 +21,8 @@
 !.config/nvim/
 !.config/nvim/**
 !.config/starship.toml
+!.config/lazygit/
+!.config/lazygit/config.yml
 !.config/fastfetch/
 !.config/fastfetch/**
 !.config/opencode/

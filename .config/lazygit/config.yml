@@ -1,0 +1,10 @@
+# Plain look: no panel boxes, file icons, commit graph or random tips.
+# Lazygit has no ASCII border style; hidden is the closest.
+gui:
+  border: hidden
+  showFileIcons: false
+  showRandomTip: false
+  showCommandLog: false
+git:
+  log:
+    showGraph: never
