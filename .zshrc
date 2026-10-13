@@ -74,7 +74,16 @@ fi
 
 # 5. Starship prompt
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#93a1a1'
+export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 eval "$(starship init zsh)"
+
+# Show the vi-mode state before the folder; zle-keymap-select redraws it.
+__vi_mode_label() {
+  case $KEYMAP in
+    vicmd) print -n '%B%K{#b58900}%F{#fdf6e3}[NORMAL]%f%k%b ' ;;
+  esac
+}
+PROMPT=$'\n''$(__vi_mode_label)'"$PROMPT"
 
 # 6. Aliases and helpers
 # Git commands drop the "git"; other aliases only exist when used often.

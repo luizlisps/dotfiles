@@ -9,6 +9,8 @@ $cmd_duration\
 $line_break\
 $character"""
 palette = "solarized"
+# .zshrc prints the leading blank line so it can prepend the vi mode label.
+add_newline = false
 
 [palettes.solarized]
 background = "#fdf6e3"
@@ -93,4 +95,4 @@ detect_files = []
 [character]
 success_symbol = "[λ](bold type)"
 error_symbol = "[λ](bold error)"
-vimcmd_symbol = "[λ](bold string)"
+vimcmd_symbol = "[λ](bold warning)"
