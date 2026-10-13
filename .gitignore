@@ -43,13 +43,10 @@
 !.hermes/skins/
 !.hermes/skins/**
 
-# Claude Code settings and personal skills; synced skills are managed by claude.ai
+# Claude Code settings only
 !.claude/
 .claude/*
 !.claude/settings.json
-!.claude/skills/
-!.claude/skills/**
-.claude/skills/synced/
 
 # Generated files inside tracked trees
 **/.DS_Store
