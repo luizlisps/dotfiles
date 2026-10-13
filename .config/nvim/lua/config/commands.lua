@@ -1,14 +1,3 @@
-local function reload_config()
-    local config = vim.fn.fnameescape(vim.fn.stdpath("config") .. "/init.lua")
-    vim.cmd("source " .. config)
-    vim.notify("Neovim config reloaded", vim.log.levels.INFO)
-end
-
-vim.api.nvim_create_user_command("Reload", reload_config, {
-    desc = "Reload Neovim config",
-    force = true,
-})
-
 local function restart_with_current_file()
     local file = vim.api.nvim_buf_get_name(0)
     local cursor = vim.api.nvim_win_get_cursor(0)

@@ -2,21 +2,16 @@ vim.g.copilot_no_tab_map = true
 
 -- Keep LazyGit's floating modal in the same ASCII style as Telescope.
 vim.g.lazygit_floating_window_scaling_factor = 0.9
-vim.g.lazygit_floating_window_border_chars = { "-", "|", "-", "|", "+", "+", "+", "+" }
+vim.g.lazygit_floating_window_border_chars = { "+", "-", "+", "|", "+", "-", "+", "|" }
 
 vim.pack.add({
     {
-        src = "https://github.com/nvim-neo-tree/neo-tree.nvim",
-        name = "neo-tree",
-        version = vim.version.range("3"),
-    },
-    {
-        src = "https://github.com/MunifTanjim/nui.nvim",
-        name = "nui",
-    },
-    {
         src = "https://github.com/nvim-lua/plenary.nvim",
         name = "plenary",
+    },
+    {
+        src = "https://github.com/mikavilpas/yazi.nvim",
+        name = "yazi",
     },
     {
         src = "https://github.com/nvim-telescope/telescope.nvim",

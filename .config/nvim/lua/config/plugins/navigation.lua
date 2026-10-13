@@ -1,57 +1,8 @@
-require("neo-tree").setup({
-    popup_border_style = { "+", "-", "+", "|", "+", "-", "+", "|" },
-    enable_git_status = true,
-    enable_diagnostics = false,
-    enable_modified_markers = false,
-    default_component_configs = {
-        name = {
-            use_git_status_colors = true,
-        },
-        indent = {
-            indent_marker = "|",
-            last_indent_marker = "+",
-        },
-        icon = {
-            default = "",
-            folder_closed = ">",
-            folder_open = "v",
-            folder_empty = ">",
-            folder_empty_open = "v",
-            provider = function(icon, node)
-                if node.type == "file" then
-                    icon.text = ""
-                end
-            end,
-        },
-        git_status = {
-            symbols = {
-                added = "A",
-                modified = "M",
-                deleted = "D",
-                renamed = "R",
-                untracked = "?",
-                ignored = "I",
-                unstaged = "M",
-                staged = "A",
-                conflict = "U",
-            },
-        },
-    },
-    window = {
-        position = "left",
-        width = 30,
-    },
-    filesystem = {
-        bind_to_cwd = true,
-        cwd_target = { sidebar = "tab", current = "window" },
-        filtered_items = {
-            hide_dotfiles = false,
-            hide_gitignored = true,
-        },
-        follow_current_file = {
-            enabled = true,
-        },
-    },
+-- Files are browsed with Yazi in a float, so the explorer never becomes a
+-- listed buffer and keeps the same keys and icons as Yazi in the shell.
+require("yazi").setup({
+    floating_window_scaling_factor = 0.9,
+    yazi_floating_window_border = { "+", "-", "+", "|", "+", "-", "+", "|" },
 })
 
 local telescope_actions = require("telescope.actions")

@@ -6,35 +6,6 @@ local function map(lhs, rhs, description)
         desc = description,
     })
 end
-local function peek_documentation()
-    vim.lsp.buf.hover()
-end
-
-local function peek_signature()
-    vim.lsp.buf.signature_help()
-end
-
-local function show_leader_help()
-    local leader = vim.g.mapleader or " "
-    local leader_name = leader == " " and "<Space>" or leader
-
-    telescope.keymaps({
-        modes = { "n" },
-        show_plug = false,
-        lhs_filter = function(lhs)
-            return lhs:sub(1, #leader) == leader or lhs:sub(1, #leader_name) == leader_name
-        end,
-        prompt_title = "Leader help",
-        results_title = "Usage",
-        previewer = false,
-        layout_strategy = "horizontal",
-        layout_config = {
-            width = 0.65,
-            height = 0.6,
-        },
-    })
-end
-
 local function current_buffer_directory()
     local filename = vim.api.nvim_buf_get_name(0)
     if filename == "" then
@@ -47,7 +18,7 @@ map("<leader>fc", function()
     telescope.find_files({ cwd = current_buffer_directory() })
 end, "Files here")
 
-map("<leader>e", "<cmd>Neotree filesystem focus left<cr>", "File tree")
+map("<leader>e", "<cmd>Yazi<cr>", "Files")
 map("<leader>gg", "<cmd>LazyGit<cr>", "Git UI")
 map("<leader>ff", telescope.find_files, "Files")
 map("<leader>fg", telescope.live_grep, "Search")
@@ -58,11 +29,8 @@ vim.keymap.set("x", "<leader>fg", telescope.grep_string, {
 map("<leader>fb", telescope.buffers, "Buffers")
 map("<leader>bn", "<cmd>enew<cr>", "New buffer")
 map("<leader>bd", "<cmd>bdelete<cr>", "Close buffer")
-map("[b", "<cmd>bprevious<cr>", "Previous buffer")
-map("]b", "<cmd>bnext<cr>", "Next buffer")
 map("<leader>fh", telescope.help_tags, "Help tags")
-map("<leader>he", show_leader_help, "Leader help")
-map("<leader>d", function()
+map("<leader>dl", function()
     vim.diagnostic.open_float(0, { scope = "line" })
 end, "Line diagnostic")
 map("<leader>dd", function()
@@ -71,19 +39,11 @@ end, "Buffer diagnostics")
 map("<leader>dw", telescope.diagnostics, "Workspace diagnostics")
 map("<leader>l", "<cmd>Lint<cr>", "Lint")
 map("gd", vim.lsp.buf.definition, "Go to definition")
-map("K", peek_documentation, "Peek docs")
-map("<leader>hd", peek_documentation, "Peek docs")
-map("<leader>hs", peek_signature, "Peek signature")
-map("<leader>pd", telescope.lsp_definitions, "Peek definition")
-map("gI", vim.lsp.buf.implementation, "Go to implementation")
-map("gr", vim.lsp.buf.references, "Find references")
-map("grn", vim.lsp.buf.rename, "Rename symbol")
 
 map("<leader>fm", function()
     require("conform").format({ async = true, lsp_format = "fallback" })
 end, "Format buffer")
 map("<leader>rr", "<cmd>Restart<cr>", "Restart Neovim")
-map("<leader>rc", "<cmd>Reload<cr>", "Reload config")
 map("<Esc>", "<cmd>nohlsearch<cr>", "Clear search highlight")
 
 local function completion_navigation(forward)

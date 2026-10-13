@@ -1,26 +1,6 @@
 vim.opt.termguicolors = true
 require("mini.basics").setup()
 
-require("mini.icons").setup({
-    style = "glyph",
-})
-local mini_icons = require("mini.icons")
-local function filetype_icon()
-    local filetype = vim.bo.filetype
-    if filetype == "" then
-        return ""
-    end
-    return mini_icons.get("filetype", filetype)
-end
-local function filetype_icon_color()
-    local filetype = vim.bo.filetype
-    if filetype == "" then
-        return nil
-    end
-    local _, highlight = mini_icons.get("filetype", filetype)
-    return highlight
-end
-
 require("lualine").setup({
     options = {
         icons_enabled = false,
@@ -58,10 +38,7 @@ require("lualine").setup({
             },
         },
         lualine_x = {
-            {
-                filetype_icon,
-                color = filetype_icon_color,
-            },
+            "filetype",
             {
                 "lsp_status",
                 ignore_lsp = { "GitHub Copilot" },
@@ -81,19 +58,20 @@ require("lualine").setup({
         lualine_a = {},
         lualine_b = {},
         lualine_c = { "filename" },
-        lualine_x = {
-            {
-                filetype_icon,
-                color = filetype_icon_color,
-            },
-            "location",
-        },
+        lualine_x = { "filetype", "location" },
         lualine_y = {},
         lualine_z = {},
     },
-    extensions = { "neo-tree", "quickfix", "man" },
+    extensions = { "quickfix", "man" },
 })
-require("mini.starter").setup()
+local starter = require("mini.starter")
+starter.setup({
+    footer = "",
+    content_hooks = {
+        starter.gen_hook.adding_bullet("- "),
+        starter.gen_hook.aligning("center", "center"),
+    },
+})
 local bufferline = require("bufferline")
 bufferline.setup({
     options = {
@@ -109,17 +87,18 @@ bufferline.setup({
         separator_style = { "|", "|" },
         left_trunc_marker = "<",
         right_trunc_marker = "",
-        get_element_icon = function(element)
-            if element.path ~= "" then
-                return (mini_icons.get("file", element.path))
-            end
-            if element.filetype ~= "" then
-                return (mini_icons.get("filetype", element.filetype))
-            end
-        end,
+        show_buffer_icons = false,
     },
 })
 require("mini.notify").setup({
+    content = {
+        format = function(notif)
+            return notif.msg
+        end,
+    },
+    window = {
+        config = { title = "" },
+    },
     -- pyright reports "Analyzing..." progress on every edit, which spams popups
     lsp_progress = { enable = false },
 })
