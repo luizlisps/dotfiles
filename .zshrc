@@ -77,20 +77,16 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#93a1a1'
 eval "$(starship init zsh)"
 
 # 6. Aliases and helpers
+# Git commands drop the "git"; other aliases only exist when used often.
 alias vim='nvim'
-alias push='git push'
 alias add='git add'
 alias commit='git commit -m'
-alias clone='git clone'
+alias push='git push'
 alias pull='git pull'
-alias cls='clear'
+alias clone='git clone'
+alias dots='git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME"'
 alias ls='eza'
 alias ll='eza -lah'
-alias la='eza -A'
-alias ..='cd ..'
-alias dotfiles='git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME"'
-alias dots='dotfiles'
-alias fetch='fastfetch'
 alias sail='./vendor/bin/sail'
 
 mkcd() {
@@ -102,25 +98,15 @@ mkcd() {
   mkdir -p -- "$1" && cd -- "$1"
 }
 
-force() {
-  if [ $# -eq 0 ]; then
-    echo 'uso: force "mensagem do commit"'
-    return 2
-  fi
-
-  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    echo 'force: nao esta dentro de um repositorio Git'
-    return 1
-  fi
-
-  git add . && git commit -m "$*" && git push
+# Open Yazi and stay in the directory it was in when quitting.
+y() {
+  local tmp cwd
+  tmp="$(mktemp -t yazi-cwd.XXXXXX)"
+  yazi "$@" --cwd-file="$tmp"
+  cwd="$(<"$tmp")"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && cd -- "$cwd"
+  rm -f -- "$tmp"
 }
-
-vault_qmd() {
-  (cd "$HOME/git/vault" && qmd "$@")
-}
-
-
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
