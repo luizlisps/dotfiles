@@ -1,0 +1,26 @@
+{
+  "model": "opus",
+  "enabledPlugins": {
+    "php-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true
+  },
+  "modelSettings": {
+    "claude-haiku-5-5": {
+      "effortLevel": "low"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    }
+  },
+  "pluginConfigs": {
+    "cc-plugin-agents-md@builtin": {
+      "options": {
+        "instructionFiles": "claude-md-or-agents-md"
+      }
+    }
+  },
+  "theme": "auto",
+  "editorMode": "vim",
+  "autoCompactEnabled": true
+}
