@@ -1,6 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
+$hostname\
 $directory\
 $python\
 ${custom.git_branch_outside_home}\
@@ -37,10 +38,10 @@ format = "[$user]($style) | "
 show_always = true
 
 [hostname]
-style = "muted"
-disabled = true
-format = "[$hostname]($style) "
-ssh_only = false
+style = "bold error"
+disabled = false
+format = "[ssh:$hostname]($style) "
+ssh_only = true
 aliases = { "MacBook-Air" = "air" }
 
 [directory]
