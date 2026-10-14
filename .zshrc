@@ -63,14 +63,23 @@ export FZF_DEFAULT_OPTS='--height=40% --layout=reverse --border'
 # 4. Command feedback
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#6b7280'
-if [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+# Homebrew on macOS, /usr/share on Debian.
+for __plugin_dir in /opt/homebrew/share /usr/share; do
+  if [[ -r $__plugin_dir/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    source $__plugin_dir/zsh-autosuggestions/zsh-autosuggestions.zsh
+    break
+  fi
+done
 
 # Syntax highlighting must be loaded after other Zsh plugins.
-if [[ -r /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+# Homebrew on macOS, /usr/share on Debian.
+for __plugin_dir in /opt/homebrew/share /usr/share; do
+  if [[ -r $__plugin_dir/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source $__plugin_dir/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    break
+  fi
+done
+unset __plugin_dir
 
 # 5. Starship prompt
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#93a1a1'
@@ -118,10 +127,14 @@ y() {
 }
 
 # pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
+if [[ $OSTYPE == darwin* ]]; then
+  export PNPM_HOME="$HOME/Library/pnpm"
+else
+  export PNPM_HOME="$HOME/.local/share/pnpm"
+fi
 case ":$PATH:" in
   *":$PNPM_HOME/bin:"*) ;;
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
-export PATH=/opt/homebrew/opt/openjdk@25/bin:$PATH
+[[ -d /opt/homebrew/opt/openjdk@25/bin ]] && export PATH=/opt/homebrew/opt/openjdk@25/bin:$PATH
