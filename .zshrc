@@ -125,3 +125,19 @@ case ":$PATH:" in
 esac
 # pnpm end
 export PATH=/opt/homebrew/opt/openjdk@25/bin:$PATH
+
+# Tint the background while an interactive SSH session is open
+# (per pane inside tmux, which would otherwise swallow the OSC 11)
+ssh() {
+  if [[ -t 1 ]]; then
+    if [[ -n $TMUX ]]; then tmux select-pane -P 'bg=#eee8d5'
+    else printf '\e]11;#eee8d5\a'; fi
+  fi
+  command ssh "$@"
+  local ret=$?
+  if [[ -t 1 ]]; then
+    if [[ -n $TMUX ]]; then tmux select-pane -P 'bg=default'
+    else printf '\e]111\a'; fi
+  fi
+  return $ret
+}
