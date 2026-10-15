@@ -1,6 +1,7 @@
 theme = solarized-light
-font-family = "Paper Mono"
-font-feature = -calt, -liga, -dlig, -ss02, ss03, -ss04, -cv01, zero
+# font-family = "Paper Mono"
+# font-feature = -calt, -liga, -dlig, -ss02, ss03, -ss04, -cv01, zero
+font-family="Monaco Nerd Font Mono"
 cursor-style = block
 cursor-style-blink = false
 
