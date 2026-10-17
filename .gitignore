@@ -36,13 +36,6 @@
 !.omp/agent/themes/
 !.omp/agent/themes/**
 
-# Hermes Agent non-secret configuration
-!.hermes/
-.hermes/*
-!.hermes/config.yaml
-!.hermes/skins/
-!.hermes/skins/**
-
 # Claude Code settings only
 !.claude/
 .claude/*
