@@ -1,0 +1,6 @@
+#!/bin/sh
+# tmux-session-n N: troca para a N-esima sessao, por ordem de criacao.
+tmux list-sessions -F '#{session_created} #{session_name}' | sort -n | sed -n "${1}p" | {
+    read -r _ name || exit 0
+    tmux switch-client -t "=$name"
+}

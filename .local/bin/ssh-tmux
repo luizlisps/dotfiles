@@ -1,0 +1,15 @@
+#!/bin/sh
+# ssh-tmux [host] [sessao]: entra (ou cria) uma sessao tmux persistente no host.
+# Reconecta sozinho se o SSH cair (codigo 255); sair da sessao encerra o script.
+host=${1:-srv}
+name=${2:-main}
+case $name in
+    *[!A-Za-z0-9_-]* | '') echo "ssh-tmux: nome invalido: $name (use letras, numeros, _ ou -)" >&2; exit 2 ;;
+esac
+while :; do
+    ssh -t -o ServerAliveInterval=15 -o ServerAliveCountMax=3 "$host" tmux new-session -A -s "$name"
+    rc=$?
+    [ "$rc" -eq 255 ] || exit "$rc"
+    echo "ssh-tmux: conexao perdida, tentando de novo (Ctrl-C cancela)..." >&2
+    sleep 2
+done

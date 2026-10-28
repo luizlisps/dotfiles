@@ -1,0 +1,103 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$directory\
+$python\
+${custom.git_branch_outside_home}\
+$git_status\
+$cmd_duration\
+$line_break\
+$character"""
+palette = "seoul256"
+# .zshrc prints the leading blank line above the prompt.
+continuation_prompt = "[λ.. ](muted)"
+add_newline = false
+
+# seoul256 dark (junegunn/seoul256.vim), background 237. Names follow the
+# Vim highlight group each colour comes from; text colours are the nearest
+# palette entries that reach 4.5:1 on 237 (the stock ones fall below it).
+[palettes.seoul256]
+background = "#4b4b4b"
+surface = "#3f3f3f"
+selection = "#616161"
+muted = "#bdbdbd"
+text = "#d9d9d9"
+accent = "#e0bebc"
+mode = "#ffbd98"
+directory = "#dfdebd"
+link = "#bce0ff"
+error = "#ffbfbd"
+warning = "#dfbc72"
+string = "#bcdede"
+keyword = "#ffc0de"
+success = "#bcddbd"
+change = "#bce0ff"
+delete = "#ffbfbd"
+
+
+[username]
+    style_user = "muted"
+    style_root = "bold error"
+format = "[$user]($style) | "
+show_always = true
+
+[hostname]
+style = "muted"
+disabled = true
+format = "[$hostname]($style) "
+ssh_only = false
+aliases = { "MacBook-Air" = "air" }
+
+[directory]
+style = "directory"
+format = "[$path]($style) "
+truncation_length = 3
+
+[git_branch]
+disabled = true
+
+[custom.git_branch_outside_home]
+command = "git branch --show-current"
+when = 'test "$PWD" != "$HOME" && git rev-parse --is-inside-work-tree >/dev/null 2>&1'
+format = '\([git:$output]($style)\)'
+style = "bold link"
+shell = ["zsh", "--no-rcs"]
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "warning"
+[git_status]
+format = '( $all_status$ahead_behind)'
+style = "string"
+conflicted = "="
+untracked = "?"
+modified = "!"
+staged = "+"
+renamed = "[>](bold change)"
+deleted = "x"
+stashed = "$"
+ahead = "^"
+behind = "v"
+diverged = "^v"
+up_to_date = ""
+
+
+[cmd_duration]
+format = '[ ⏳$duration ]($style)'
+style = "muted"
+
+[haskell]
+symbol = "λ"
+style = "keyword"
+format = '([$symbol $version]($style) )'
+
+[python]
+format = "[$virtualenv]($style) "
+style = "muted"
+detect_extensions = []
+detect_files = []
+
+[character]
+success_symbol = "[λ.](bold accent)"
+error_symbol = "[λ.](bold error)"
+vimcmd_symbol = '[\(n\)](bold mode)'
