@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Dotfiles installer for macOS. Safe to re-run.
 #
-#   curl -fsSL https://raw.githubusercontent.com/luizlisps/dotfiles/new/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/luizlisps/dotfiles/master/install.sh | bash
 #
-# Overrides: DOTFILES_REPO (clone URL), DOTFILES_BRANCH (default: new).
+# Overrides: DOTFILES_REPO (clone URL), DOTFILES_BRANCH (default: master).
 set -Eeuo pipefail
 
 REPO="${DOTFILES_REPO:-https://github.com/luizlisps/dotfiles.git}"
-BRANCH="${DOTFILES_BRANCH:-new}"
+BRANCH="${DOTFILES_BRANCH:-master}"
 GIT_DIR_PATH="$HOME/.dotfiles"
 BACKUP_DIR="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 BREW=""
