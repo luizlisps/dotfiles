@@ -70,6 +70,7 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 # apps
 brew "yazi"
+brew "jq"
 brew "lazygit"
 brew "can1357/tap/omp"
 # neovim and what its config calls
@@ -80,7 +81,7 @@ brew "ruff"
 brew "pyright"
 brew "typescript-language-server"
 brew "lua-language-server"
-brew "prettier"
+brew "rust-analyzer"
 EOF
   "$BREW" bundle --no-upgrade --file="$brewfile" </dev/null
   rm -f -- "$brewfile"
