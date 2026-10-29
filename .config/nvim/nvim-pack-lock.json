@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "seoul256": {
+      "rev": "0357ff3e44faab66c98bc98dfc89c834e37012da",
+      "src": "https://github.com/junegunn/seoul256.vim"
+    }
+  }
+}

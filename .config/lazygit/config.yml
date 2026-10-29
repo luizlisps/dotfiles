@@ -1,0 +1,33 @@
+gui:
+  border: rounded
+  nerdFontsVersion: "3"
+  showRandomTip: false
+  showCommandLog: false
+  theme:
+    # seoul256 default (junegunn/seoul256.vim), dark, background 237.
+    activeBorderColor:
+      - "#e09b99"
+      - bold
+    inactiveBorderColor:
+      - "#999872"
+    searchingActiveBorderColor:
+      - "#98bede"
+      - bold
+    optionsTextColor:
+      - "#bdbdbd"
+    selectedLineBgColor:
+      - "#730b00"
+    inactiveViewSelectedLineBgColor:
+      - "#565656"
+    cherryPickedCommitFgColor:
+      - "#f1f1f1"
+    cherryPickedCommitBgColor:
+      - "#007173"
+    markedBaseCommitFgColor:
+      - "#f1f1f1"
+    markedBaseCommitBgColor:
+      - "#007299"
+    unstagedChangesColor:
+      - "#ffbfbd"
+    defaultFgColor:
+      - "#d9d9d9"

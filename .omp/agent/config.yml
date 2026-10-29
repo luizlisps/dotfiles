@@ -1,0 +1,10 @@
+tui:
+  vimMode: true
+symbolPreset: unicode
+composer:
+  shape: band
+  tokenRate: false
+setupVersion: 2
+theme:
+  dark: seoul256
+  light: seoul256
