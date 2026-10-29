@@ -108,3 +108,20 @@ alias lt='eza --tree --level=2'
 alias cat='bat -pp'                         # plain + no pager: like cat, with colours on a tty
 alias vim='nvim'
 alias lg='lazygit'
+
+# Tint the background while an interactive SSH session is open
+# (per pane inside tmux, which would otherwise swallow the OSC 11).
+# #333233 is seoul256 colour 235, one step off the 237 background.
+ssh() {
+  if [[ -t 1 ]]; then
+    if [[ -n $TMUX ]]; then tmux select-pane -P 'bg=#333233'
+    else printf '\e]11;#333233\a'; fi
+  fi
+  command ssh "$@"
+  local ret=$?
+  if [[ -t 1 ]]; then
+    if [[ -n $TMUX ]]; then tmux select-pane -P 'bg=default'
+    else printf '\e]111\a'; fi
+  fi
+  return $ret
+}
