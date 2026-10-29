@@ -109,6 +109,16 @@ alias cat='bat -pp'                         # plain + no pager: like cat, with c
 alias vim='nvim'
 alias lg='lazygit'
 
+# Open Yazi and cd into the directory it was in when quitting.
+y() {
+  local tmp cwd
+  tmp="$(mktemp -t yazi-cwd.XXXXXX)"
+  yazi "$@" --cwd-file="$tmp"
+  cwd="$(<"$tmp")"
+  [[ -n $cwd && $cwd != $PWD ]] && cd -- "$cwd"
+  rm -f -- "$tmp"
+}
+
 # Tint the background while an interactive SSH session is open
 # (per pane inside tmux, which would otherwise swallow the OSC 11).
 # #333233 is seoul256 colour 235, one step off the 237 background.

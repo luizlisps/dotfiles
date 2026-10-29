@@ -228,7 +228,8 @@ local treesitter_filetypes = {
 require("nvim-treesitter").setup({
     install_dir = vim.fn.stdpath("data") .. "/site",
 })
-require("nvim-treesitter").install({
+-- Also read by install.sh to build every parser before the first real launch.
+vim.g.treesitter_parsers = {
     "bash",
     "css",
     "html",
@@ -247,7 +248,8 @@ require("nvim-treesitter").install({
     "vim",
     "vimdoc",
     "yaml",
-})
+}
+require("nvim-treesitter").install(vim.g.treesitter_parsers)
 require("render-markdown").setup({
     render_modes = { "n", "c", "t" },
     latex = {
