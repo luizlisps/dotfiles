@@ -21,3 +21,6 @@
 
 [merge]
 	conflictstyle = zdiff3
+[user]
+	name = luizlisps
+	email = luizgust.x@gmail.com
