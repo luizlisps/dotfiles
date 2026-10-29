@@ -48,6 +48,9 @@ ensure_brew() {
 
 install_packages() {
   log "Packages"
+  # omp comes from a third-party tap; Homebrew will not load it until trusted.
+  "$BREW" tap can1357/tap </dev/null
+  "$BREW" trust --formula can1357/tap/omp </dev/null
   local brewfile
   brewfile="$(mktemp -t dotfiles-brewfile.XXXXXX)"
   cat >"$brewfile" <<'EOF'
