@@ -8,6 +8,18 @@ path=($HOME/.local/bin $path)
 # Homebrew completions (starship, eza, ...) must be on fpath before compinit.
 [[ -d /opt/homebrew/share/zsh/site-functions ]] && fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 
+# Tools: editor, pager, fzf sources. bat/delta use the base16 theme, i.e. the
+# terminal's ANSI palette, which ghostty's seoul256 theme defines.
+export EDITOR=nvim VISUAL=nvim
+export BAT_THEME=base16
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT=-c
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :200 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {}'"
+
 # Theme data (LS_COLORS, fzf, highlighting, suggestions): seoul256 default.
 # Sourced before oh-my-zsh so plugins and completion styles pick it up.
 source "$HOME/.config/zsh/seoul256.zsh"
@@ -25,6 +37,7 @@ plugins=(
   history-substring-search
   sudo                  # Esc Esc: prefix the line with sudo
   extract               # x <archive>
+  direnv                # per-directory .envrc
   zoxide                # z <dir>, zi
   fzf                   # keep last: Ctrl-R / Ctrl-T / Alt-C override vi-mode's
 )
@@ -51,7 +64,7 @@ setopt HIST_SAVE_NO_DUPS
 setopt HIST_VERIFY                          # !! expands in the buffer, no blind run
 
 # 5. Completion
-zstyle ':completion:*' menu select
+zstyle ':completion:*' menu no              # fzf-tab draws the menu
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|=*'
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
@@ -59,6 +72,13 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%F{#bdbdbd}-- %d --%f'
 zstyle ':completion:*:warnings' format '%F{#ffbfbd}no matches for: %d%f'
+
+# fzf-tab: fzf-powered Tab menu. After compinit, before the plugins that wrap
+# widgets (autosuggestions, highlighting). Colours come from FZF_DEFAULT_OPTS.
+[[ -r $ZSH/custom/plugins/fzf-tab/fzf-tab.plugin.zsh ]] && source $ZSH/custom/plugins/fzf-tab/fzf-tab.plugin.zsh
+zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --level=2 --color=always $realpath'
+zstyle ':fzf-tab:complete:(z|zi):*' fzf-preview 'eza --tree --level=2 --color=always $realpath'
 
 # 6. Keys: Up/Down (and k/j in vi command mode) search history for what is typed.
 for _k in '^[[A' '^[OA'; do bindkey $_k history-substring-search-up;   bindkey -M viins $_k history-substring-search-up;   done
@@ -70,9 +90,21 @@ bindkey -M vicmd 'j' history-substring-search-down
 # 7. Prompt (pure preset: ~/.config/starship.toml)
 eval "$(starship init zsh)"
 
+# Atuin: searchable history on Ctrl-R. Up-arrow stays with history-substring-search.
+eval "$(atuin init zsh --disable-up-arrow)"
+
 # 8. Command feedback (brew plugins; highlighting must load last)
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] \
   && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -r /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] \
   && source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# 9. Aliases
+alias ls='eza'
+alias ll='eza -lah --git'
+alias la='eza -a'
+alias lt='eza --tree --level=2'
+alias cat='bat -pp'                         # plain + no pager: like cat, with colours on a tty
+alias vim='nvim'
+alias lg='lazygit'
